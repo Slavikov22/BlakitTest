@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BlakitTest</string>
+
+    <string name="email_hint">Email или телефон</string>
+    <string name="password_hint">Пароль</string>
+
+    <string name="login_button">Войти</string>
 </resources>
