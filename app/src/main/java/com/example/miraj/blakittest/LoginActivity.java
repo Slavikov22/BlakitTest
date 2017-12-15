@@ -33,7 +33,8 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onError(VKError error) {
-                Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_LONG).show();
+                findViewById(R.id.loadingLayout).setVisibility(View.INVISIBLE);
+                findViewById(R.id.refreshLayout).setVisibility(View.VISIBLE);
             }
         })) {
             super.onActivityResult(requestCode, resultCode, data);
