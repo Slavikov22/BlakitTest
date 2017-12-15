@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">BlakitTest</string>
+    <integer name="com_vk_sdk_AppId">6296204</integer>
 
-    <string name="email_hint">Email или телефон</string>
-    <string name="password_hint">Пароль</string>
-
-    <string name="login_button">Войти</string>
+    <string name="login_error">Try again</string>
 </resources>
