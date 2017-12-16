@@ -2,6 +2,7 @@ package com.example.miraj.blakittest;
 
 import android.content.Intent;
 
+import com.example.miraj.blakittest.activity.LoginActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;

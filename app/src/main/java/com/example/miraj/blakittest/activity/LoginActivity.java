@@ -1,11 +1,11 @@
-package com.example.miraj.blakittest;
+package com.example.miraj.blakittest.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.miraj.blakittest.R;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -29,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
+                setResult(RESULT_OK);
+                finish();
             }
             @Override
             public void onError(VKError error) {
@@ -39,6 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         })) {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     public void refresh(View view) {
