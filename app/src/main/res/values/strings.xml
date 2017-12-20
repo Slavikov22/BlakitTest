@@ -4,4 +4,8 @@
 
     <string name="login_loading">Login ...</string>
     <string name="login_error">Try again</string>
+
+    <string name="online">online</string>
+
+    <string name="edit">Edit</string>
 </resources>

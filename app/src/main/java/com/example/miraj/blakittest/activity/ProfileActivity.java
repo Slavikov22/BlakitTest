@@ -5,32 +5,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.miraj.blakittest.R;
-import com.vk.sdk.VKSdk;
+import com.example.miraj.blakittest.fragment.NavigatorFragment;
+import com.example.miraj.blakittest.fragment.ProfileInfoFragment;
 
 public class ProfileActivity extends AppCompatActivity {
-    private static final int LOGIN_ACTIVITY_R_CODE = 1;
+    public static final String ARG_ID = "profileId";
+
+    protected int profileId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        if (!VKSdk.isLoggedIn())
-            login();
+        Intent intent = getIntent();
+        profileId = intent.getIntExtra(ARG_ID, 0);
+
+        setNavigatorFragment();
+        setProfileInfoFragment();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == LOGIN_ACTIVITY_R_CODE){
-            if (resultCode == RESULT_CANCELED)
-                finish();
-        }
+    protected void setNavigatorFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.navigatorLayout, NavigatorFragment.newInstance(false))
+                .commit();
     }
 
-    protected void login(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivityForResult(intent, LOGIN_ACTIVITY_R_CODE);
+    protected void setProfileInfoFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.profileLayout, ProfileInfoFragment.newInstance(profileId))
+                .commit();
     }
 }
