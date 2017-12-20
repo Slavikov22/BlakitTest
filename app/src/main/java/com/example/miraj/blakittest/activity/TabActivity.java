@@ -11,6 +11,12 @@ import com.example.miraj.blakittest.fragment.ChangeTab;
 import com.example.miraj.blakittest.fragment.MenuFragment;
 import com.example.miraj.blakittest.fragment.NavigatorFragment;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKApiConst;
+import com.vk.sdk.api.VKParameters;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKList;
 
 public class TabActivity
         extends AppCompatActivity
