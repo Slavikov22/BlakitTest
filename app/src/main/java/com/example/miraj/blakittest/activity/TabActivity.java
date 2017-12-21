@@ -32,9 +32,6 @@ public class TabActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
-        setNavigatorFragment();
-        changeTab(DEFAULT_TAB);
-
         if (!VKSdk.isLoggedIn())
             login();
     }
@@ -62,8 +59,13 @@ public class TabActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == LOGIN_ACTIVITY_R_CODE){
-            if (resultCode == RESULT_CANCELED)
+            if (resultCode == RESULT_CANCELED) {
                 finish();
+            }
+            else if (resultCode == RESULT_OK) {
+                setNavigatorFragment();
+                changeTab(DEFAULT_TAB);
+            }
         }
     }
 
