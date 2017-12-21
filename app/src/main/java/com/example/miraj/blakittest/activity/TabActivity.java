@@ -34,6 +34,8 @@ public class TabActivity
 
         if (!VKSdk.isLoggedIn())
             login();
+        else
+            setupNavigatorFragment();
     }
 
     @Override
@@ -63,17 +65,18 @@ public class TabActivity
                 finish();
             }
             else if (resultCode == RESULT_OK) {
-                setNavigatorFragment();
-                changeTab(DEFAULT_TAB);
+                setupNavigatorFragment();
             }
         }
     }
 
-    protected void setNavigatorFragment() {
+    protected void setupNavigatorFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.navigatorLayout, NavigatorFragment.newInstance(true))
                 .commit();
+
+        changeTab(DEFAULT_TAB);
     }
 
     protected void login(){
