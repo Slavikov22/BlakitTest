@@ -1,5 +1,6 @@
 package com.example.miraj.blakittest.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
+import com.example.miraj.blakittest.activity.ProfileInfoActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -41,6 +43,15 @@ public class ProfileInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+            }
+        });
+
+        view.findViewById(R.id.showInfoText).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ProfileInfoActivity.class);
+                intent.putExtra(ProfileInfoActivity.ARG_ID, user.getId());
+                startActivity(intent);
             }
         });
 

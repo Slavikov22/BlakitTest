@@ -8,4 +8,57 @@
     <string name="online">online</string>
 
     <string name="edit">Edit</string>
+    <string name="show_info">Показать информацию</string>
+
+    <string name="status">Статус</string>
+    <string name="birth_day">День рождения</string>
+    <string name="family_status">Семейное положение</string>
+
+    <string name="contact_info">Контактная информация</string>
+    <string name="city">Город</string>
+    <string name="phone_number">Моб. телефон</string>
+    <string name="opt_phone_number">Доп. телефон</string>
+    <string name="skype">Skype</string>
+    <string name="website">Веб-сайт</string>
+
+    <string name="education">Образование</string>
+    <string name="school">Школа</string>
+    <string name="university">Университет</string>
+
+    <string name="life_position">Жизненная позиция</string>
+    <string name="political_view">Политические предпочтения</string>
+    <string name="life_view">Мировоззрение</string>
+    <string name="main_in_life">Главное в жизни</string>
+    <string name="main_in_people">Главное в людях</string>
+    <string name="relation_to_smoke">Отношение к курению</string>
+    <string name="relation_to_alcohol">Отношение к алкоголю</string>
+    <string name="inspiration">Источники вдохновления</string>
+
+    <string name="personal_info">Личная информация</string>
+    <string name="activities">Деятельность</string>
+    <string name="interests">Интересы</string>
+    <string name="favorite_music">Любимая музыка</string>
+    <string name="favorite_films">Любимые фильмы</string>
+    <string name="favorite_books">Любимые книги</string>
+    <string name="favorite_games">Любимые игры</string>
+    <string name="favorite_quotes">Любимые цитаты</string>
+    <string name="about_yourself">О себе</string>
+
+    <string name="sex">Пол</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    
+    <string name="notMarriedM">Не женат</string>
+    <string name="notMarriedF">Не замужем</string>
+    <string name="hasFriendM">Есть подруга</string>
+    <string name="hasFriendF">Есть друг</string>
+    <string name="betrothedM">Помолвлен</string>
+    <string name="betrothedF">Помолвлена</string>
+    <string name="marriedM">Женат</string>
+    <string name="marriedF">Замужем</string>
+    <string name="allHard">Всё сложно</string>
+    <string name="inActiveSearch">В активном поиске</string>
+    <string name="inLoveM">Влюблен</string>
+    <string name="inLoveF">Влюблена</string>
+    <string name="civilMarried">В гражданском браке</string>
 </resources>
