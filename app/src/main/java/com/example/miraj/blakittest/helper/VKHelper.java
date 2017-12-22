@@ -6,32 +6,33 @@ import com.example.miraj.blakittest.R;
 import com.vk.sdk.api.model.VKApiUserFull;
 
 public class VKHelper {
-    public static String getFamilyStatus(Context context, VKApiUserFull user) {
-        if (user.sex == VKApiUserFull.Sex.MALE) {
-            switch (user.relation) {
-                case 1: return context.getString(R.string.notMarriedM);
-                case 2: return context.getString(R.string.hasFriendM);
-                case 3: return context.getString(R.string.betrothedM);
-                case 4: return context.getString(R.string.marriedM);
-                case 5: return context.getString(R.string.allHard);
-                case 6: return context.getString(R.string.inActiveSearch);
-                case 7: return context.getString(R.string.inLoveM);
-                case 8: return context.getString(R.string.civilMarried);
-                default: return "";
-            }
+    public static String[] getAvailableFamilyStatuses(Context context, VKApiUserFull user) {
+        if (user.sex == VKApiUserFull.Sex.MALE)
+            return new String[] {
+                    context.getString(R.string.notChoose),
+                    context.getString(R.string.notMarriedM),
+                    context.getString(R.string.hasFriendM),
+                    context.getString(R.string.betrothedM),
+                    context.getString(R.string.marriedM),
+                    context.getString(R.string.allHard),
+                    context.getString(R.string.inActiveSearch),
+                    context.getString(R.string.inLoveM),
+                    context.getString(R.string.civilMarried)
+            };
+        else if (user.sex == VKApiUserFull.Sex.FEMALE) {
+            return new String[] {
+                    context.getString(R.string.notChoose),
+                    context.getString(R.string.notMarriedF),
+                    context.getString(R.string.hasFriendF),
+                    context.getString(R.string.betrothedF),
+                    context.getString(R.string.marriedF),
+                    context.getString(R.string.allHard),
+                    context.getString(R.string.inActiveSearch),
+                    context.getString(R.string.inLoveF),
+                    context.getString(R.string.civilMarried)
+            };
         }
-        else {
-            switch (user.relation) {
-                case 1: return context.getString(R.string.notMarriedF);
-                case 2: return context.getString(R.string.hasFriendF);
-                case 3: return context.getString(R.string.betrothedF);
-                case 4: return context.getString(R.string.marriedF);
-                case 5: return context.getString(R.string.allHard);
-                case 6: return context.getString(R.string.inActiveSearch);
-                case 7: return context.getString(R.string.inLoveF);
-                case 8: return context.getString(R.string.civilMarried);
-                default: return "";
-            }
-        }
+
+        return new String[] {};
     }
 }

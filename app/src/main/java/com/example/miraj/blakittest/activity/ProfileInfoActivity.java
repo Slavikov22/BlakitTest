@@ -75,7 +75,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         ArrayList<Pair<String, String>> fields = new ArrayList<>();
         fields.add(new Pair<>(getString(R.string.status), user.activity));
         fields.add(new Pair<>(getString(R.string.birth_day), user.bdate));
-        fields.add(new Pair<>(getString(R.string.family_status), VKHelper.getFamilyStatus(this, user)));
+        fields.add(new Pair<>(getString(R.string.family_status), VKHelper.getAvailableFamilyStatuses(this, user)[user.relation]));
 
         return InfoBlockFragment.newInstance(null, fields);
     }
