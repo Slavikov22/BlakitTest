@@ -7,13 +7,17 @@
     android:layout_height="match_parent"
     tools:context="com.example.miraj.blakittest.activity.ProfileActivity">
 
-    <LinearLayout
-        android:id="@+id/profileLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/navigatorLayout"
