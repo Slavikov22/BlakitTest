@@ -2,13 +2,18 @@
     <string name="app_name">BlakitTest</string>
     <integer name="com_vk_sdk_AppId">6296204</integer>
 
-    <string name="login_loading">Login ...</string>
-    <string name="login_error">Try again</string>
+    <string name="login_loading">Войти</string>
+    <string name="login_error">Попробовать снова</string>
+
+    <string name="back">Назад</string>
+    <string name="save">Сохранить</string>
 
     <string name="online">online</string>
 
-    <string name="edit">Edit</string>
+    <string name="edit">Редактировать</string>
     <string name="show_info">Показать информацию</string>
+
+    <string name="notChoose">Не выбрано</string>
 
     <string name="status">Статус</string>
     <string name="birth_day">День рождения</string>
