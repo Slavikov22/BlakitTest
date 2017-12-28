@@ -49,7 +49,11 @@ public class InfoBlockFragment extends Fragment {
         }
 
         for (Pair<String, String> pair : fields)
-            addFieldView((ViewGroup) view.findViewById(R.id.fieldsLayout), pair.first, pair.second);
+            if (!pair.second.isEmpty())
+                addFieldView((ViewGroup) view.findViewById(R.id.fieldsLayout), pair.first, pair.second);
+
+        if (((ViewGroup) view.findViewById(R.id.fieldsLayout)).getChildCount() > 0)
+            view.setVisibility(View.VISIBLE);
 
         return view;
     }

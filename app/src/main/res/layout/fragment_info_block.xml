@@ -6,7 +6,8 @@
     android:layout_marginBottom="3dp"
     android:orientation="vertical"
     tools:context="com.example.miraj.blakittest.fragment.InfoBlockFragment"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:visibility="gone">
 
     <TextView
         android:id="@+id/titleText"
