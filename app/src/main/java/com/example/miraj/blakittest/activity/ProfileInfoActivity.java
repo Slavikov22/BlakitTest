@@ -3,7 +3,9 @@ package com.example.miraj.blakittest.activity;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Pair;
+import android.view.MenuItem;
 
 import com.example.miraj.blakittest.R;
 import com.example.miraj.blakittest.fragment.InfoBlockFragment;
@@ -19,7 +21,6 @@ import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class ProfileInfoActivity extends AppCompatActivity {
     public static final String ARG_ID = "profileId";
@@ -31,7 +32,23 @@ public class ProfileInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_info);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        setSupportActionBar(toolbar);
+
         loadUser(getIntent().getIntExtra(ARG_ID, 0));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return true;
     }
 
     protected void loadUser(int profileId) {
@@ -59,6 +76,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
             @Override
             public void onComplete(VKResponse response) {
                 ProfileInfoActivity.this.user = (VKApiUserFull) ((VKList) response.parsedModel).get(0);
+
+                ((Toolbar) findViewById(R.id.toolbar)).setTitle(String.format("%s %s", user.first_name, user.last_name));
 
                 getSupportFragmentManager()
                         .beginTransaction()
