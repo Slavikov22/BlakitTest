@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
+import com.example.miraj.blakittest.activity.EditInfoActivity;
 import com.example.miraj.blakittest.activity.ProfileInfoActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKApi;
@@ -43,6 +44,15 @@ public class ProfileInfoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+            }
+        });
+
+        view.findViewById(R.id.editButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditInfoActivity.class);
+                intent.putExtra(EditInfoActivity.ARG_ID, user.getId());
+                startActivity(intent);
             }
         });
 
