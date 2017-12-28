@@ -8,6 +8,8 @@
     android:orientation="vertical"
     tools:context="com.example.miraj.blakittest.activity.ProfileInfoActivity">
 
+    <include layout="@layout/toolbar"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
