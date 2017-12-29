@@ -12,12 +12,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
 import com.example.miraj.blakittest.helper.VKHelper;
+import com.example.miraj.blakittest.helper.image.CircleTransformation;
+import com.squareup.picasso.Picasso;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKParameters;
@@ -115,7 +118,8 @@ public class EditInfoActivity extends AppCompatActivity {
 
     protected void loadUser(int profileId) {
         String[] fields = new String[] {
-                VKApiUserFull.BDATE, VKApiUserFull.CITY, VKApiUserFull.SEX, VKApiUserFull.RELATION
+                VKApiUserFull.BDATE, VKApiUserFull.CITY, VKApiUserFull.SEX,
+                VKApiUserFull.RELATION, VKApiUserFull.FIELD_PHOTO_200
         };
 
         StringBuilder sb = new StringBuilder();
@@ -181,5 +185,14 @@ public class EditInfoActivity extends AppCompatActivity {
                         VKHelper.getAvailableFamilyStatuses(this, user))
         );
         familyStatusSpinner.setSelection(user.relation);
+
+        updatePhoto();
+    }
+
+    protected void updatePhoto() {
+        Picasso.with(this)
+                .load(user.photo_200)
+                .transform(new CircleTransformation())
+                .into((ImageView) findViewById(R.id.image));
     }
 }
