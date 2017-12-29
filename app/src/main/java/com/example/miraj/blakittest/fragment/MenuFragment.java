@@ -8,10 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
 import com.example.miraj.blakittest.activity.ProfileActivity;
+import com.example.miraj.blakittest.helper.image.CircleTransformation;
+import com.squareup.picasso.Picasso;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.VKUIHelper;
@@ -22,6 +25,7 @@ import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiModel;
 import com.vk.sdk.api.model.VKApiUser;
+import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
 import org.json.JSONException;
@@ -58,15 +62,21 @@ public class MenuFragment extends Fragment {
     }
 
     protected void setProfileInfo() {
-        VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "first_name, last_name"));
+        VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, VKApiUserFull.FIELD_PHOTO_200));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
-                VKApiUser user = (VKApiUser) ((VKList) response.parsedModel).get(0);
-                if (getView() != null)
+                VKApiUserFull user = (VKApiUserFull) ((VKList) response.parsedModel).get(0);
+                if (getView() != null) {
                     ((TextView) getView().findViewById(R.id.userNameText))
                             .setText(String.format("%s %s", user.first_name, user.last_name));
+
+                    Picasso.with(getActivity())
+                            .load(user.photo_200)
+                            .transform(new CircleTransformation())
+                            .into((ImageView) getView().findViewById(R.id.userImage));
+                }
             }
         });
     }
