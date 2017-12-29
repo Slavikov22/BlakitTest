@@ -116,7 +116,7 @@ public class ProfileInfoFragment extends Fragment {
             if (!user.activity.isEmpty()) {
                 TextView v = getView().findViewById(R.id.statusText);
                 v.setText(user.activity);
-                v.setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.statusLayout).setVisibility(View.VISIBLE);
             }
         }
     }
@@ -125,7 +125,7 @@ public class ProfileInfoFragment extends Fragment {
         if (getView() != null) {
             TextView v = getView().findViewById(R.id.friendsText);
             v.setText(String.valueOf(user.counters.friends));
-            v.setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.friendsLayout).setVisibility(View.VISIBLE);
         }
     }
 
@@ -133,7 +133,7 @@ public class ProfileInfoFragment extends Fragment {
         if (getView() != null) {
             TextView v = getView().findViewById(R.id.followersText);
             v.setText(String.valueOf(user.counters.followers));
-            v.setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.followersLayout).setVisibility(View.VISIBLE);
         }
     }
 
@@ -141,7 +141,7 @@ public class ProfileInfoFragment extends Fragment {
         if (getView() != null) {
             TextView v = getView().findViewById(R.id.cityText);
             v.setText(user.city.title);
-            v.setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.cityLayout).setVisibility(View.VISIBLE);
         }
     }
 
@@ -150,7 +150,7 @@ public class ProfileInfoFragment extends Fragment {
             if (user.universities.getCount() > 0) {
                 TextView v = getView().findViewById(R.id.educationText);
                 v.setText(user.universities.get(user.universities.getCount() - 1).name);
-                v.setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.educationLayout).setVisibility(View.VISIBLE);
             }
         }
     }
