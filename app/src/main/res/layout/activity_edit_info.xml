@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/sexText"
@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/sexGroup"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
+                android:textSize="12sp"
                 android:text="@string/sex"/>
 
             <RadioGroup
@@ -57,8 +58,8 @@
                     android:id="@+id/maleRadioButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_weight="1"
+                    android:textSize="12sp"
                     android:text="@string/male" />
 
                 <RadioButton
@@ -66,6 +67,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="12sp"
                     android:text="@string/female" />
             </RadioGroup>
 
