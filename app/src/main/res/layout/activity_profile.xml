@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.miraj.blakittest.activity.ProfileActivity">
+    tools:context="com.example.miraj.blakittest.activity.ProfileActivity"
+    android:background="@color/gray">
 
     <ScrollView
         android:layout_width="match_parent"

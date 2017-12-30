@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.miraj.blakittest.fragment.NavigatorFragment"
     android:orientation="horizontal"
-    android:background="@color/white">
+    android:background="@color/lightGray">
 
     <ImageView
         android:layout_width="0dp"

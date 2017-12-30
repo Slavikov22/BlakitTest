@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.miraj.blakittest.fragment.MenuFragment"
-    android:background="@color/white">
+    android:background="@color/lightGray">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/profileLayout"
@@ -26,7 +26,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/userImage"
             app:layout_constraintTop_toTopOf="@id/userImage"
+            app:layout_constraintBottom_toBottomOf="@id/userImage"
             android:layout_marginStart="10dp"
+            android:textSize="18sp"
             android:textColor="@color/black"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

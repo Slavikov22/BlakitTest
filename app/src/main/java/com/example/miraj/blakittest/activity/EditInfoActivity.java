@@ -78,7 +78,7 @@ public class EditInfoActivity extends AppCompatActivity {
                         ((Spinner) findViewById(R.id.bdateSpinner)).setAdapter(
                                 new ArrayAdapter<>(
                                         EditInfoActivity.this,
-                                        R.layout.support_simple_spinner_dropdown_item,
+                                        R.layout.spinner_item,
                                         new String[] {String.format(LOCALE, "%d.%d.%d", day, month, year)})
                         );
                     }
@@ -174,14 +174,14 @@ public class EditInfoActivity extends AppCompatActivity {
             ((RadioButton) findViewById(R.id.femaleRadioButton)).setChecked(true);
 
         ((Spinner) findViewById(R.id.bdateSpinner)).setAdapter(
-                new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, new String[] {user.bdate})
+                new ArrayAdapter<>(this, R.layout.spinner_item, new String[] {user.bdate})
         );
 
         Spinner familyStatusSpinner = findViewById(R.id.familyStatusSpinner);
         familyStatusSpinner.setAdapter(
                 new ArrayAdapter<>(
                         this,
-                        R.layout.support_simple_spinner_dropdown_item,
+                        R.layout.spinner_item,
                         VKHelper.getAvailableFamilyStatuses(this, user))
         );
         familyStatusSpinner.setSelection(user.relation);

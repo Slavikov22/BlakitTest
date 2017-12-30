@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.miraj.blakittest.activity.TabActivity">
+    tools:context="com.example.miraj.blakittest.activity.TabActivity"
+    android:background="@color/gray">
     
     <LinearLayout
         android:id="@+id/tabLayout"
