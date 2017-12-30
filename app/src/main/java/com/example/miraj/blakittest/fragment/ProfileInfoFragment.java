@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
 import com.example.miraj.blakittest.activity.EditInfoActivity;
 import com.example.miraj.blakittest.activity.ProfileInfoActivity;
+import com.squareup.picasso.Picasso;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -71,10 +73,21 @@ public class ProfileInfoFragment extends Fragment {
     }
 
     protected void loadUser(int profileId) {
+        String[] fields = new String[] {
+                VKApiUserFull.ACTIVITY, VKApiUserFull.CITY, VKApiUserFull.COUNTERS,
+                VKApiUserFull.UNIVERSITIES, VKApiUserFull.FIELD_ONLINE,
+                VKApiUserFull.FIELD_PHOTO_400_ORIGIN
+        };
+
+        StringBuilder sb = new StringBuilder();
+        for (String s : fields)
+            sb.append(s).append(",");
+
         VKRequest request = VKApi.users().get(VKParameters.from(
                 VKApiConst.USER_ID, profileId,
-                VKApiConst.FIELDS, "activity, city, counters, universities, online"
+                VKApiConst.FIELDS, sb
         ));
+
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
@@ -85,17 +98,26 @@ public class ProfileInfoFragment extends Fragment {
     }
 
     protected void updateView() {
-        updateNameView();
-        updateOnlineView();
         updateStatusView();
         updateFriendsCountView();
         updateFollowersCountView();
         updateCityNameView();
         updateEducationNameView();
+        updatePhoto();
 
         if (user.id == Integer.valueOf(VKAccessToken.currentToken().userId))
             if (getView() != null)
                 getView().findViewById(R.id.editButton).setVisibility(View.VISIBLE);
+    }
+
+    protected void updatePhoto() {
+        if (getView() != null)
+            Picasso.with(getActivity())
+                    .load(user.photo_400_orig)
+                    .into((ImageView) getView().findViewById(R.id.photoImage));
+
+        updateNameView();
+        updateOnlineView();
     }
 
     protected void updateNameView() {

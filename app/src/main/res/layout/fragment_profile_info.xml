@@ -10,11 +10,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="200dp">
 
         <ImageView
+            android:id="@+id/photoImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/nameText"
@@ -22,7 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/white"
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/onlineText"
@@ -30,7 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/backImage"
