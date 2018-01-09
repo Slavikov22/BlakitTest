@@ -5,6 +5,20 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'debug'
+            keyPassword '3yageQs9UJ6Pc7Dk'
+            storeFile file('keys/debug/debug_keystore.jks')
+            storePassword 'HU2PWLpLcay4M5mD'
+        }
+        release {
+            keyAlias 'release'
+            keyPassword 'KHqxE8UxNsX5rPMb'
+            storeFile file('keys/release/release_keystore.jks')
+            storePassword 'spwDZ4nEKsUhRQFX'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.miraj.blakittest"
@@ -24,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
