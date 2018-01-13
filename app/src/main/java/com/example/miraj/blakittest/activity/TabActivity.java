@@ -1,86 +1,98 @@
 package com.example.miraj.blakittest.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.miraj.blakittest.R;
-import com.example.miraj.blakittest.fragment.ChangeTab;
-import com.example.miraj.blakittest.fragment.MenuFragment;
-import com.example.miraj.blakittest.fragment.NavigatorFragment;
+import com.example.miraj.blakittest.fragment.ProfileFragment;
+import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.api.VKApi;
-import com.vk.sdk.api.VKApiConst;
-import com.vk.sdk.api.VKParameters;
-import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
-import com.vk.sdk.api.model.VKList;
 
-public class TabActivity
-        extends AppCompatActivity
-        implements ChangeTab {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class TabActivity extends AppCompatActivity implements UpdateFragmentListener{
+    public enum Tab { FRIENDS, MESSAGES, PHOTO, PROFILE }
+
     private static final int LOGIN_ACTIVITY_R_CODE = 1;
-    private static final String ARG_TAB = "tab";
-    private static final NavigatorFragment.Tab DEFAULT_TAB = NavigatorFragment.Tab.MENU;
+    private static Tab DEFAULT_TAB = Tab.PROFILE;
 
-    private Fragment tabFragment;
+    @BindView(R.id.bottomNavigationView) BottomNavigationView bottomNavigation;
+
+    @Override
+    public void updateFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.tabLayout, fragment)
+                .commit();
+    }
+
+    @Override
+    public void updateFragmentWithBackStack(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.tabLayout, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
-
-        if (!VKSdk.isLoggedIn())
-            login();
-        else
-            setupNavigatorFragment();
-    }
-
-    @Override
-    public void changeTab(NavigatorFragment.Tab tab) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        if (tabFragment != null)
-            transaction.remove(tabFragment);
-
-        switch (tab) {
-            case MENU:
-                tabFragment = MenuFragment.newInstance();
-                break;
-            default:
-                tabFragment = new Fragment();
-        }
-
-        transaction.add(R.id.tabLayout, tabFragment).commit();
+        ButterKnife.bind(this);
+        setupBottomNavigatorListener();
+        checkLogin();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == LOGIN_ACTIVITY_R_CODE){
             if (resultCode == RESULT_CANCELED) {
                 finish();
             }
             else if (resultCode == RESULT_OK) {
-                setupNavigatorFragment();
+                setupDefaultFragment();
             }
         }
     }
 
-    protected void setupNavigatorFragment() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.navigatorLayout, NavigatorFragment.newInstance(true))
-                .commit();
-
-        changeTab(DEFAULT_TAB);
+    private void setupBottomNavigatorListener() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_profile:
+                        String profileId = VKAccessToken.currentToken().userId;
+                        updateFragment(ProfileFragment.newInstance(profileId));
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
-    protected void login(){
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivityForResult(intent, LOGIN_ACTIVITY_R_CODE);
+    private void checkLogin(){
+        if (!VKSdk.isLoggedIn()) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, LOGIN_ACTIVITY_R_CODE);
+        } else {
+            setupDefaultFragment();
+        }
+    }
+
+    private void setupDefaultFragment() {
+        switch (DEFAULT_TAB) {
+            case PROFILE:
+                bottomNavigation.setSelectedItemId(R.id.action_profile);
+                break;
+        }
     }
 }
