@@ -1,8 +1,10 @@
 package com.example.miraj.blakittest.fragment;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
-import com.example.miraj.blakittest.activity.EditInfoActivity;
-import com.example.miraj.blakittest.activity.ProfileInfoActivity;
+import com.example.miraj.blakittest.activity.UpdateFragmentListener;
+import com.example.miraj.blakittest.adapter.ProfileInfoAdapter;
+import com.example.miraj.blakittest.helper.VKHelper;
 import com.squareup.picasso.Picasso;
-import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKParameters;
@@ -22,158 +24,179 @@ import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class ProfileInfoFragment extends Fragment {
     private static final String ARG_PROFILE_ID = "profileId";
 
+    @BindView(R.id.photoImage) ImageView photoImage;
+    @BindView(R.id.nameText) TextView nameText;
+    @BindView(R.id.onlineText) TextView onlineText;
+    @BindView(R.id.statusText) TextView statusText;
+    @BindView(R.id.friendsText) TextView friendsText;
+    @BindView(R.id.followersText) TextView followersText;
+    @BindView(R.id.cityText) TextView cityText;
+    @BindView(R.id.educationText) TextView educationText;
+    @BindView(R.id.showInfo) TextView showInfo;
+    @BindView(R.id.infoList) RecyclerView infoList;
+
+    private String profileId;
     private VKApiUserFull user;
+    private UpdateFragmentListener updateFragmentListener;
 
     public ProfileInfoFragment() {}
 
-    public static ProfileInfoFragment newInstance(int profileId) {
+    public static ProfileInfoFragment newInstance(String profileId) {
         ProfileInfoFragment fragment = new ProfileInfoFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PROFILE_ID, profileId);
+        args.putString(ARG_PROFILE_ID, profileId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        profileId = getArguments().getString(ARG_PROFILE_ID);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_info, container, false);
-
-        view.findViewById(R.id.backImage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
-
-        view.findViewById(R.id.editButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditInfoActivity.class);
-                intent.putExtra(EditInfoActivity.ARG_ID, user.getId());
-                startActivity(intent);
-            }
-        });
-
-        view.findViewById(R.id.showInfoText).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ProfileInfoActivity.class);
-                intent.putExtra(ProfileInfoActivity.ARG_ID, user.getId());
-                startActivity(intent);
-            }
-        });
-
-        loadUser(getArguments().getInt(ARG_PROFILE_ID));
-
+        ButterKnife.bind(this, view);
+        loadUser();
         return view;
     }
 
-    protected void loadUser(int profileId) {
-        String[] fields = new String[] {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        updateFragmentListener = (UpdateFragmentListener) context;
+    }
+
+    @OnClick(R.id.editButton)
+    public void displayEditInfoFragment() {
+        updateFragmentListener.updateFragmentWithBackStack(EditInfoFragment.newInstance());
+    }
+
+    @OnClick(R.id.showInfo)
+    public void displayInfoList() {
+        if (infoList.getVisibility() == View.VISIBLE) {
+            infoList.setVisibility(View.GONE);
+            showInfo.setText(getString(R.string.show_info));
+        }
+        else {
+            infoList.setVisibility(View.VISIBLE);
+            showInfo.setText(getString(R.string.hide_info));
+        }
+    }
+
+    private void loadUser() {
+        String fields = VKHelper.getVKUserFieldsAsString(
                 VKApiUserFull.ACTIVITY, VKApiUserFull.CITY, VKApiUserFull.COUNTERS,
                 VKApiUserFull.UNIVERSITIES, VKApiUserFull.FIELD_ONLINE,
-                VKApiUserFull.FIELD_PHOTO_400_ORIGIN
-        };
-
-        StringBuilder sb = new StringBuilder();
-        for (String s : fields)
-            sb.append(s).append(",");
-
+                VKApiUserFull.FIELD_PHOTO_400_ORIGIN, VKApiUserFull.BDATE,
+                VKApiUserFull.ACTIVITIES, VKApiUserFull.ABOUT, VKApiUserFull.BOOKS,
+                VKApiUserFull.GAMES, VKApiUserFull.INTERESTS, VKApiUserFull.MOVIES,
+                VKApiUserFull.CONTACTS, VKApiUserFull.PERSONAL,
+                VKApiUserFull.SCHOOLS, VKApiUserFull.SITE, VKApiUserFull.OCCUPATION,
+                VKApiUserFull.TV, VKApiUserFull.QUOTES, VKApiUserFull.SEX,
+                VKApiUserFull.RELATION, VKApiUserFull.OCCUPATION, VKApiUserFull.RELATIVES,
+                VKApiUserFull.CONNECTIONS, VKApiUserFull.COUNTERS
+        );
         VKRequest request = VKApi.users().get(VKParameters.from(
-                VKApiConst.USER_ID, profileId,
-                VKApiConst.FIELDS, sb
+                VKApiConst.USER_ID, Integer.valueOf(profileId),
+                VKApiConst.FIELDS, fields
         ));
-
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
-                ProfileInfoFragment.this.user = (VKApiUserFull) ((VKList) response.parsedModel).get(0);
-                updateView();
+                user = (VKApiUserFull) ((VKList) response.parsedModel).get(0);
+                updateUserView();
             }
         });
     }
 
-    protected void updateView() {
-        updateStatusView();
-        updateFriendsCountView();
-        updateFollowersCountView();
-        updateCityNameView();
-        updateEducationNameView();
-        updatePhoto();
-
-        if (user.id == Integer.valueOf(VKAccessToken.currentToken().userId))
-            if (getView() != null)
-                getView().findViewById(R.id.editButton).setVisibility(View.VISIBLE);
+    private void updateUserView() {
+        updatePhotoImage();
+        updateNameText();
+        updateOnlineText();
+        updateStatusText();
+        updateFriendsText();
+        updateFollowersText();
+        updateCityText();
+        updateEducationText();
+        updateInfoFields();
     }
 
-    protected void updatePhoto() {
-        if (getView() != null)
-            Picasso.with(getActivity())
-                    .load(user.photo_400_orig)
-                    .into((ImageView) getView().findViewById(R.id.photoImage));
-
-        updateNameView();
-        updateOnlineView();
+    private void updatePhotoImage() {
+        Picasso.with(getActivity())
+                .load(user.photo_400_orig)
+                .into(photoImage);
     }
 
-    protected void updateNameView() {
-        if (getView() != null) {
-            ((TextView) getView().findViewById(R.id.nameText))
-                    .setText(String.format("%s %s", user.first_name, user.last_name));
-        }
+    private void updateNameText() {
+        nameText.setText(String.format("%s %s", user.first_name, user.last_name));
     }
 
-    protected void updateOnlineView() {
-        if (getView() != null)
-            if (user.online)
-                ((TextView) getView().findViewById(R.id.onlineText)).setText(R.string.online);
+    private void updateOnlineText() {
+        if (user.online)
+            onlineText.setText(R.string.online);
     }
 
-    protected void updateStatusView() {
-        if (getView() != null) {
-            if (!user.activity.isEmpty()) {
-                TextView v = getView().findViewById(R.id.statusText);
-                v.setText(user.activity);
-                getView().findViewById(R.id.statusLayout).setVisibility(View.VISIBLE);
-            }
-        }
+    private void updateStatusText() {
+        if (!user.activity.isEmpty())
+            statusText.setText(user.activity);
+        else
+            statusText.setVisibility(View.GONE);
     }
 
-    protected void updateFriendsCountView () {
-        if (getView() != null) {
-            TextView v = getView().findViewById(R.id.friendsText);
-            v.setText(String.valueOf(user.counters.friends));
-            getView().findViewById(R.id.friendsLayout).setVisibility(View.VISIBLE);
-        }
+    private void updateFriendsText() {
+        friendsText.setText(String.valueOf(user.counters.friends));
     }
 
-    protected void updateFollowersCountView () {
-        if (getView() != null) {
-            TextView v = getView().findViewById(R.id.followersText);
-            v.setText(String.valueOf(user.counters.followers));
-            getView().findViewById(R.id.followersLayout).setVisibility(View.VISIBLE);
-        }
+    private void updateFollowersText() {
+        followersText.setText(String.valueOf(user.counters.followers));
     }
 
-    protected void updateCityNameView () {
-        if (getView() != null) {
-            TextView v = getView().findViewById(R.id.cityText);
-            v.setText(user.city.title);
-            getView().findViewById(R.id.cityLayout).setVisibility(View.VISIBLE);
-        }
+    private void updateCityText() {
+        cityText.setText(String.valueOf(user.city.title));
     }
 
-    protected void updateEducationNameView () {
-        if (getView() != null) {
-            if (user.universities.getCount() > 0) {
-                TextView v = getView().findViewById(R.id.educationText);
-                v.setText(user.universities.get(user.universities.getCount() - 1).name);
-                getView().findViewById(R.id.educationLayout).setVisibility(View.VISIBLE);
-            }
-        }
+    private void updateEducationText() {
+        int universitiesCount = user.universities.getCount();
+        if (universitiesCount > 0)
+            educationText.setText(user.universities.get(universitiesCount - 1).name);
+        else
+            educationText.setVisibility(View.GONE);
+    }
+
+    private void updateInfoFields() {
+        List<Pair<String, String>> fields = getUserInfoFields();
+        ProfileInfoAdapter adapter = new ProfileInfoAdapter(getContext(), fields);
+        infoList.setAdapter(adapter);
+    }
+
+    private List<Pair<String, String>> getUserInfoFields() {
+        List<Pair<String, String>> fields = new ArrayList<>();
+        fields.add(getUserInfoField(R.string.birth_day, user.bdate));
+        fields.add(getUserInfoField(R.string.city, user.city.title));
+        fields.add(getUserInfoField(R.string.family_status, VKHelper.getFamilyStatus(getContext(), user)));
+        fields.add(getUserInfoField(R.string.phone_number, user.mobile_phone));
+        fields.add(getUserInfoField(R.string.opt_phone_number, user.home_phone));
+        fields.add(getUserInfoField(R.string.skype, user.skype));
+        fields.add(getUserInfoField(R.string.website, user.site));
+        return fields;
+    }
+
+    private Pair<String, String> getUserInfoField(int resource, String text) {
+        String title = getString(resource);
+        return new Pair<>(title, text);
     }
 }
