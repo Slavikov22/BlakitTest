@@ -2,8 +2,13 @@
     <string name="app_name">BlakitTest</string>
     <integer name="com_vk_sdk_AppId">6296204</integer>
 
-    <string name="login_loading">Войти</string>
+    <string name="login_loading">Вход...</string>
     <string name="login_error">Попробовать снова</string>
+
+    <string name="friends">Друзья</string>
+    <string name="chat">Сообщения</string>
+    <string name="photo">Фото</string>
+    <string name="profile">Профиль</string>
 
     <string name="back">Назад</string>
     <string name="save">Сохранить</string>
@@ -12,6 +17,7 @@
 
     <string name="edit">Редактировать</string>
     <string name="show_info">Показать информацию</string>
+    <string name="hide_info">Скрыть информацию</string>
 
     <string name="notChoose">Не выбрано</string>
 
@@ -52,7 +58,7 @@
     <string name="sex">Пол</string>
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
-    
+
     <string name="notMarriedM">Не женат</string>
     <string name="notMarriedF">Не замужем</string>
     <string name="hasFriendM">Есть подруга</string>

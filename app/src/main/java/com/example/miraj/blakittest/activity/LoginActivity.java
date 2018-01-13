@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.miraj.blakittest.R;
 import com.vk.sdk.VKAccessToken;
@@ -12,14 +13,22 @@ import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends AppCompatActivity {
     String[] scope = new String[] {VKScope.FRIENDS, VKScope.GROUPS, VKScope.MESSAGES,
             VKScope.PHOTOS, VKScope.WALL};
+
+    @BindView(R.id.loadingText) TextView loadingView;
+    @BindView(R.id.refreshText) TextView refreshView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         VKSdk.login(this, scope);
     }
@@ -34,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onError(VKError error) {
-                findViewById(R.id.loadingLayout).setVisibility(View.INVISIBLE);
-                findViewById(R.id.refreshLayout).setVisibility(View.VISIBLE);
+                loadingView.setVisibility(View.INVISIBLE);
+                refreshView.setVisibility(View.VISIBLE);
             }
         })) {
             super.onActivityResult(requestCode, resultCode, data);
@@ -48,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    @OnClick(R.id.refreshText)
     public void refresh(View view) {
         VKSdk.login(this, scope);
     }
