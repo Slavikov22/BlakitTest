@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -110,9 +109,5 @@ public class ProfileFragment extends Fragment {
         manager.beginTransaction()
                 .add(R.id.fragmentContainer, fragment)
                 .commit();
-    }
-
-    private void closeFragment() {
-        getActivity().getSupportFragmentManager().popBackStack();
     }
 }

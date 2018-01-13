@@ -12,6 +12,7 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment {
     private static final String ARG_CALENDAR = "calendar";
 
+    // Заглушка, если не задать dateSetListener
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {}

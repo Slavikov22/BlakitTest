@@ -42,7 +42,7 @@ public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.
         return fields.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title) TextView title;
         @BindView(R.id.text) TextView text;
 

@@ -48,6 +48,7 @@ public class ProfileInfoFragment extends Fragment {
     private String profileId;
     private VKApiUserFull user;
     private UpdateFragmentListener updateFragmentListener;
+    private List<Pair<String, String>> infoFields;
 
     public ProfileInfoFragment() {}
 
@@ -132,7 +133,7 @@ public class ProfileInfoFragment extends Fragment {
         updateFollowersText();
         updateCityText();
         updateEducationText();
-        updateInfoFields();
+        updateInfoList();
     }
 
     private void updatePhotoImage() {
@@ -177,26 +178,26 @@ public class ProfileInfoFragment extends Fragment {
             educationText.setVisibility(View.GONE);
     }
 
-    private void updateInfoFields() {
-        List<Pair<String, String>> fields = getUserInfoFields();
-        ProfileInfoAdapter adapter = new ProfileInfoAdapter(getContext(), fields);
+    private void updateInfoList() {
+        updateInfoFields();
+        ProfileInfoAdapter adapter = new ProfileInfoAdapter(getContext(), infoFields);
         infoList.setAdapter(adapter);
     }
 
-    private List<Pair<String, String>> getUserInfoFields() {
-        List<Pair<String, String>> fields = new ArrayList<>();
-        fields.add(getUserInfoField(R.string.birth_day, user.bdate));
-        fields.add(getUserInfoField(R.string.city, user.city.title));
-        fields.add(getUserInfoField(R.string.family_status, VKHelper.getFamilyStatus(getContext(), user)));
-        fields.add(getUserInfoField(R.string.phone_number, user.mobile_phone));
-        fields.add(getUserInfoField(R.string.opt_phone_number, user.home_phone));
-        fields.add(getUserInfoField(R.string.skype, user.skype));
-        fields.add(getUserInfoField(R.string.website, user.site));
-        return fields;
+    private void updateInfoFields() {
+        infoFields = new ArrayList<>();
+        addInfoFieldIfExists(R.string.birth_day, user.bdate);
+        addInfoFieldIfExists(R.string.city, user.city.title);
+        addInfoFieldIfExists(R.string.family_status, VKHelper.getFamilyStatus(getContext(), user));
+        addInfoFieldIfExists(R.string.phone_number, user.mobile_phone);
+        addInfoFieldIfExists(R.string.opt_phone_number, user.home_phone);
+        addInfoFieldIfExists(R.string.skype, user.skype);
+        addInfoFieldIfExists(R.string.website, user.site);
     }
 
-    private Pair<String, String> getUserInfoField(int resource, String text) {
+    private void addInfoFieldIfExists(int resource, String text) {
         String title = getString(resource);
-        return new Pair<>(title, text);
+        if (!text.isEmpty())
+            infoFields.add(new Pair<>(title, text));
     }
 }

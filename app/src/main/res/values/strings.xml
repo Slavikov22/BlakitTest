@@ -2,7 +2,7 @@
     <string name="app_name">BlakitTest</string>
     <integer name="com_vk_sdk_AppId">6296204</integer>
 
-    <string name="login_loading">Вход...</string>
+    <string name="login_loading">Вход&#8230;</string>
     <string name="login_error">Попробовать снова</string>
 
     <string name="friends">Друзья</string>
@@ -35,25 +35,6 @@
     <string name="education">Образование</string>
     <string name="school">Школа</string>
     <string name="university">Университет</string>
-
-    <string name="life_position">Жизненная позиция</string>
-    <string name="political_view">Политические предпочтения</string>
-    <string name="life_view">Мировоззрение</string>
-    <string name="main_in_life">Главное в жизни</string>
-    <string name="main_in_people">Главное в людях</string>
-    <string name="relation_to_smoke">Отношение к курению</string>
-    <string name="relation_to_alcohol">Отношение к алкоголю</string>
-    <string name="inspiration">Источники вдохновления</string>
-
-    <string name="personal_info">Личная информация</string>
-    <string name="activities">Деятельность</string>
-    <string name="interests">Интересы</string>
-    <string name="favorite_music">Любимая музыка</string>
-    <string name="favorite_films">Любимые фильмы</string>
-    <string name="favorite_books">Любимые книги</string>
-    <string name="favorite_games">Любимые игры</string>
-    <string name="favorite_quotes">Любимые цитаты</string>
-    <string name="about_yourself">О себе</string>
 
     <string name="sex">Пол</string>
     <string name="male">Мужской</string>
