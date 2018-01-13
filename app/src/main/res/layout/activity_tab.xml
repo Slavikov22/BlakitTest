@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.miraj.blakittest.activity.TabActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.miraj.blakittest.activity.TabActivity"
+    android:orientation="vertical"
     android:background="@color/gray">
     
     <FrameLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
@@ -23,4 +25,4 @@
         app:itemIconTint="@color/bottom_navigation_item_background_colors"
         app:itemTextColor="@color/bottom_navigation_item_background_colors"
         app:menu="@menu/bottom_navigation_menu" />
-</FrameLayout>
+</LinearLayout>
