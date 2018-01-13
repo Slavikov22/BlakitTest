@@ -69,18 +69,7 @@ public class ProfileFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                closeFragment();
-                break;
-        }
-        return true;
-    }
-
     private void setupToolbar() {
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
     }
