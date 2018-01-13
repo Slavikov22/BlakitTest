@@ -6,6 +6,13 @@ import com.example.miraj.blakittest.R;
 import com.vk.sdk.api.model.VKApiUserFull;
 
 public class VKHelper {
+    public static String getVKUserFieldsAsString(String... fields) {
+        StringBuilder result = new StringBuilder();
+        for (String s : fields)
+            result.append(s).append(",");
+        return result.toString();
+    }
+
     public static String[] getAvailableFamilyStatuses(Context context, VKApiUserFull user) {
         if (user.sex == VKApiUserFull.Sex.MALE)
             return new String[] {
@@ -34,5 +41,9 @@ public class VKHelper {
         }
 
         return new String[] {};
+    }
+
+    public static String getFamilyStatus(Context context, VKApiUserFull user) {
+        return getAvailableFamilyStatuses(context, user)[user.relation];
     }
 }
